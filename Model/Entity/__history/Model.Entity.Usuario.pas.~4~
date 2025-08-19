@@ -1,0 +1,300 @@
+unit Model.Entity.Usuario;
+
+interface
+
+uses
+  SimpleAttributes;
+
+type
+  [Tabela('GUSUARIO')]
+  TUSUARIO = class
+  private
+    FGUSUARIO_ID      : string;
+    FGGRUPO_ID        : string;
+    FNOME             : string;
+    FNOME_LOGIN       : string;
+    FCPF_USUARIO      : string;
+    FSENHA            : string;
+    FPALAVRA_SENHA    : string;
+    FALTERAR_SENHA    : string;
+    FGUSUARIO_ATIVO   : string;
+    FSR_RECNO         : string;
+    FGACESSO          : TDate;
+    FTENTATIVA        : Integer;
+    FUSUARIO_ADM      : string;
+
+    function GetGGRUPO_ID: string;
+    function GetGUSUARIO_ID: string;
+    procedure SetGGRUPO_ID(const Value: string);
+    procedure SetGUSUARIO_ID(const Value: string);
+    function GetNOME: string;
+    procedure SetNOME(const Value: string);
+    function GetNOME_LOGIN: string;
+    procedure SetNOME_LOGIN(const Value: string);
+    function GetCPF_USUARIO: string;
+    procedure SetCPF_USUARIO(const Value: string);
+    function GetSENHA: string;
+    procedure SetSENHA(const Value: string);
+    function GetPALAVRA_SENHA: string;
+    procedure SetPALAVRA_SENHA(const Value: string);
+    function GetALTERAR_SENHA: string;
+    procedure SetALTERAR_SENHA(const Value: string);
+    function GetGUSUARIO_ATIVO: string;
+    procedure SetGUSUARIO_ATIVO(const Value: string);
+    function GetSR_RECNO: string;
+    procedure SetSR_RECNO(const Value: string);
+    function GetGACESSO: TDate;
+    procedure SetGACESSO(const Value: TDate);
+    function GetTENTATIVA: Integer;
+    procedure SetTENTATIVA(const Value: Integer);
+    function GetUSUARIO_ADM: string;
+    procedure SetUSUARIO_ADM(const Value: string);
+  public
+    constructor Create;
+    destructor Destroy; override;
+    procedure Limpar;
+    [Campo('GUSUARIO_ID')]
+    property GUSUARIO_ID: string read GetGUSUARIO_ID write SetGUSUARIO_ID;
+    [Campo('GGRUPO_ID')]
+    property GGRUPO_ID: string read GetGGRUPO_ID write SetGGRUPO_ID;
+    [Campo('NOME')]
+    property NOME: string read GetNOME write SetNOME;
+    [Campo('NOME_LOGIN')]
+    property NOME_LOGIN: string read GetNOME_LOGIN write SetNOME_LOGIN;
+    [Campo('CPF_USUARIO'), PK]
+    property CPF_USUARIO: string read GetCPF_USUARIO write SetCPF_USUARIO;
+    [Campo('SENHA')]
+    property SENHA: string read GetSENHA write SetSENHA;
+    [Campo('PALAVRA_SENHA')]
+    property PALAVRA_SENHA: string read GetPALAVRA_SENHA write SetPALAVRA_SENHA;
+    [Campo('ALTERAR_SENHA')]
+    property ALTERAR_SENHA: string read GetALTERAR_SENHA write SetALTERAR_SENHA;
+    [Campo('GUSUARIO_ATIVO')]
+    property GUSUARIO_ATIVO: string read GetGUSUARIO_ATIVO write SetGUSUARIO_ATIVO;
+    [Campo('SR_RECNO')]
+    property SR_RECNO: string read GetSR_RECNO write SetSR_RECNO;
+    [Campo('GACESSO')]
+    property GACESSO: TDate read GetGACESSO write SetGACESSO;
+    [Campo('TENTATIVA')]
+    property TENTATIVA: Integer read GetTENTATIVA write SetTENTATIVA;
+    [Campo('USUARIO_ADM')]
+    property USUARIO_ADM: string read GetUSUARIO_ADM write SetUSUARIO_ADM;
+end;
+
+implementation
+
+constructor TUSUARIO.Create;
+begin
+  Limpar;
+end;
+
+destructor TUSUARIO.Destroy;
+begin
+
+  inherited;
+end;
+
+procedure TUSUARIO.Limpar;
+begin
+  Self.FGUSUARIO_ID     := '';
+  Self.FGGRUPO_ID       := '';
+  Self.FNOME            := '';
+  Self.FNOME_LOGIN      := '';
+  Self.FCPF_USUARIO     := '';
+  Self.FSENHA           := '';
+  Self.FPALAVRA_SENHA   := '';
+  Self.FALTERAR_SENHA   := '';
+  Self.FGUSUARIO_ATIVO  := '';
+  Self.FSR_RECNO        := '';
+  Self.FGACESSO         := 0;
+  Self.FTENTATIVA       := 0;
+  Self.FUSUARIO_ADM     := '';
+  Self.FEMAIL           := '';
+  Self.FMATRICULA       := '';
+  Self.FCARGO           := '';
+  Self.FFPFUNCIONARIO_ID:= '';
+  Self.FTELEFONE_CELULAR:= '';
+end;
+
+function TUSUARIO.GetALTERAR_SENHA: string;
+begin
+  Result := FALTERAR_SENHA;
+end;
+
+function TUSUARIO.GetCARGO: string;
+begin
+  Result:= FCARGO;
+end;
+
+function TUSUARIO.GetCPF_USUARIO: string;
+begin
+  Result := FCPF_USUARIO;
+end;
+
+function TUSUARIO.GetEMAIL: string;
+begin
+  Result:= FEMAIL;
+end;
+
+function TUSUARIO.GetFPFUNCIONARIO_ID: string;
+begin
+  Result:= FPFUNCIONARIO_ID;
+end;
+
+function TUSUARIO.GetNOME_LOGIN: string;
+begin
+  Result:= FNOME_LOGIN;
+end;
+
+function TUSUARIO.GetGACESSO: TDate;
+begin
+  Result:= FGACESSO;
+end;
+
+function TUSUARIO.GetGGRUPO_ID: string;
+begin
+  Result:= FGGRUPO_ID;
+end;
+
+function TUSUARIO.GetGUSUARIO_ATIVO: string;
+begin
+  Result:= FGUSUARIO_ATIVO;
+end;
+
+function TUSUARIO.GetGUSUARIO_ID: string;
+begin
+  Result:= FGUSUARIO_ID;
+end;
+
+function TUSUARIO.GetMATRICULA: string;
+begin
+  Result:= FMATRICULA;
+end;
+
+function TUSUARIO.GetNOME: string;
+begin
+  Result:= FNOME;
+end;
+
+function TUSUARIO.GetPALAVRA_SENHA: string;
+begin
+  Result:= FPALAVRA_SENHA;
+end;
+
+function TUSUARIO.GetSENHA: string;
+begin
+  Result:= FSENHA;
+end;
+
+function TUSUARIO.GetSR_RECNO: string;
+begin
+  Result:= FSR_RECNO;
+end;
+
+function TUSUARIO.GetTELEFONE_CELULAR: string;
+begin
+  Result:= FTELEFONE_CELULAR;
+end;
+
+function TUSUARIO.GetTENTATIVA: Integer;
+begin
+  Result:= FTENTATIVA;
+end;
+
+function TUSUARIO.GetUSUARIO_ADM: string;
+begin
+  Result:= FUSUARIO_ADM;
+end;
+
+procedure TUSUARIO.SetALTERAR_SENHA(const Value: string);
+begin
+  FALTERAR_SENHA:= Value;
+end;
+
+procedure TUSUARIO.SetCARGO(const Value: string);
+begin
+  FCARGO:= Value;
+end;
+
+procedure TUSUARIO.SetCPF_USUARIO(const Value: string);
+begin
+  FCPF_USUARIO:= Value;
+end;
+
+procedure TUSUARIO.SetEMAIL(const Value: string);
+begin
+  FEMAIL:= Value;
+end;
+
+procedure TUSUARIO.SetFPFUNCIONARIO_ID(const Value: string);
+begin
+  FFPFUNCIONARIO_ID:= Value;
+end;
+
+procedure TUSUARIO.SetNOME_LOGIN(const Value: string);
+begin
+  FNOME_LOGIN:= Value;
+end;
+
+procedure TUSUARIO.SetPALAVRA_SENHA(const Value: string);
+begin
+  FPALAVRA_SENHA:= Value;
+end;
+
+procedure TUSUARIO.SetGACESSO(const Value: TDate);
+begin
+  FGACESSO:= Value;
+end;
+
+procedure TUSUARIO.SetGGRUPO_ID(const Value: string);
+begin
+  FGGRUPO_ID:= Value;
+end;
+
+procedure TUSUARIO.SetGUSUARIO_ATIVO(const Value: string);
+begin
+  FGUSUARIO_ATIVO:= Value;
+end;
+
+procedure TUSUARIO.SetGUSUARIO_ID(const Value: string);
+begin
+  FGUSUARIO_ID:= Value;
+end;
+
+procedure TUSUARIO.SetMATRICULA(const Value: string);
+begin
+  FMATRICULA:= Value;
+end;
+
+procedure TUSUARIO.SetNOME(const Value: string);
+begin
+  FNOME:= Value;
+end;
+
+procedure TUSUARIO.SetSENHA(const Value: string);
+begin
+  FSENHA:= Value;
+end;
+
+procedure TUSUARIO.SetSR_RECNO(const Value: string);
+begin
+  FSR_RECNO:= Value;
+end;
+
+procedure TUSUARIO.SetTELEFONE_CELULAR(const Value: string);
+begin
+  FTELEFONE_CELULAR:= Value;
+end;
+
+procedure TUSUARIO.SetTENTATIVA(const Value: Integer);
+begin
+  FTENTATIVA:= Value;
+end;
+
+procedure TUSUARIO.SetUSUARIO_ADM(const Value: string);
+begin
+  FUSUARIO_ADM:= Value;
+end;
+
+end.
+

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2024/10/15 16:09:12.000.474,=D:\Github\horse\Unit1.pas</Transaction>
+    <Transaction>2024/10/15 16:09:24.000.187,D:\Github\horse\Unit1.pas=D:\Github\horse\Controller\Controller.Login.pas</Transaction>
+    <Transaction>2024/10/15 16:10:53.000.331,=D:\Github\horse\Unit1.pas</Transaction>
+    <Transaction>2024/10/15 16:11:12.000.116,D:\Github\horse\Unit1.pas=D:\Github\horse\Model\Entity\Model.Entity.UsuarioLogin.pas</Transaction>
+    <Transaction>2024/10/15 16:11:18.000.914,D:\Github\horse\Controller\Controller.Login.pas=D:\Github\horse\Controller\Controller.UsuarioLogin.pas</Transaction>
+    <Transaction>2024/10/21 14:54:06.000.542,D:\Github\horse\BackLex.dproj=D:\Github\horse\SimpleORMHorse.dproj</Transaction>
+    <Transaction>2024/10/21 14:54:36.000.544,=D:\Github\horse\Unit1.pas</Transaction>
+    <Transaction>2024/10/21 14:55:19.000.441,D:\Github\horse\Model\Connection\Model.DaoUsuarioLogin.pas=D:\Github\horse\Unit1.pas</Transaction>
+    <Transaction>2024/10/21 15:57:13.000.846,=D:\Github\horse\Unit1.pas</Transaction>
+    <Transaction>2024/10/21 15:57:33.000.191,D:\Github\horse\Util\Funcoes.pas=D:\Github\horse\Unit1.pas</Transaction>
+    <Transaction>2024/10/25 07:20:19.000.128,=D:\Github\BackLex\Unit1.pas</Transaction>
+    <Transaction>2024/10/25 07:21:13.000.489,D:\Github\BackLex\Unit1.pas=D:\Github\BackLex\Model\Entity\Model.Entity.Usuario.pas</Transaction>
+    <Transaction>2024/10/25 08:12:13.000.646,=D:\Github\BackLex\Unit1.pas</Transaction>
+    <Transaction>2024/10/25 08:12:31.000.599,D:\Github\BackLex\Unit1.pas=D:\Github\BackLex\Controller\Controller.Usuario.pas</Transaction>
+    <Transaction>2024/10/25 08:16:57.000.975,=D:\Github\BackLex\Unit1.pas</Transaction>
+    <Transaction>2024/10/25 08:17:22.000.073,D:\Github\BackLex\Unit1.pas=D:\Github\BackLex\Model\Model.DaoUsuario.pas</Transaction>
+    <Transaction>2024/10/25 09:14:13.000.512,=D:\Github\BackLex\Unit1.pas</Transaction>
+    <Transaction>2024/10/25 09:14:24.000.973,D:\Github\BackLex\Unit1.pas=D:\Github\BackLex\Uteis\Funcoes.pas</Transaction>
+    <Transaction>2025/08/19 11:23:56.228,E:\Prj_Horse\BackLex\BackHorse.dproj=E:\Prj_Horse\BackLex\BackLex.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

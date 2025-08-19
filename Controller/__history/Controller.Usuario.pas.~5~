@@ -1,0 +1,75 @@
+unit Controller.Usuario;
+
+interface
+
+uses
+  Horse,
+  System.JSON,
+  IdHashMessageDigest,
+  SysUtils;
+
+procedure Registry(App : THorse);
+procedure GetListaUsuarios(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+procedure ValidarUsuarioSenha(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+procedure GetID(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+procedure Insert(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+procedure Update(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+procedure Delete(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+
+implementation
+
+uses Model.DaoGeneric, Model.Entity.Produto, Model.DaoUsuario;
+
+
+
+procedure Registry(App : THorse);
+begin
+  App.Get('/usuarios', GetListaUsuarios);
+  App.Get('/usuarios/:CPF_USUARIO/:SENHA', ValidarUsuarioSenha);
+  App.Post('/produto', Insert);
+  App.Put('/produto/:id', Update);
+  App.Delete('/produto/:id', Delete);
+end;
+
+procedure GetListaUsuarios(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+begin
+  Res.Send<TJSonArray>(TDAOUsuario.New.Find);
+end;
+
+procedure ValidarUsuarioSenha(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  LCPF: string;
+  LSenha: String;
+begin
+  LCPF:= String(Req.Params.Items['CPF_USUARIO']).Replace('.', '', [rfReplaceAll]).Replace('-', '', []);
+  LSenha:= Req.Params.Items['CPF_USUARIO'];
+
+  if (TDAOUsuario.New.ValidarUsuarioSenha(LCPF, LSenha) <> nil) then
+    Res.Status(200)
+  else
+    Res.Status(400);
+end;
+
+procedure GetID(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+begin
+  Res.Send<TJSONObject>(TDAOUsuario.New.Find(Req.Params.Items['id']));
+end;
+
+procedure Insert(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+begin
+
+end;
+
+procedure Update(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+begin
+
+end;
+
+procedure Delete(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+begin
+
+end;
+
+
+
+end.

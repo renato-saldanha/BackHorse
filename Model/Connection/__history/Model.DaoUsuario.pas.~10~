@@ -1,0 +1,167 @@
+unit Model.DaoUsuario;
+
+interface
+
+uses
+  System.JSON,
+  REST.Json,
+  SimpleInterface,
+  SimpleDAO,
+  SimpleAttributes,
+  SimpleQueryFiredac,
+  Data.DB,
+  DataSetConverter4D,
+  DataSetConverter4D.Impl,
+  DataSetConverter4D.Helper,
+  DataSetConverter4D.Util, Model.Entity.Usuario, SimpleSQL;
+
+type
+
+  iDAOUsuario = interface
+    ['{2A6C6ED9-40BC-4AF5-A635-26615D8DD321}']
+    function Find : TJsonArray; overload;
+    function Find (const aID : String; var aObject : TUSUARIO ) : iDAOUsuario; overload;
+    function Find (const aID : String ) : TJsonObject; overload;
+    function ValidarUsuarioSenha(aCPF, aSenha: String): TJSONObject;
+    function Insert (const aJsonObject : TJsonObject) : TJsonObject;
+    function Update (const aJsonObject : TJsonObject) : TJsonObject; overload;
+    function Update (const aObject : TUSUARIO) : iDAOUsuario; overload;
+    function Delete (aField : String; aValue : String) : TJsonObject;
+    function DAO : ISimpleDAO<TUSUARIO>;
+    function DataSetAsJsonArray : TJsonArray;
+    function DataSetAsJsonObject : TJsonObject;
+    function DataSet : TDataSet;
+  end;
+
+  TDAOUsuario = class(TInterfacedObject, iDAOUsuario)
+  private
+    FIndexConn : Integer;
+    FConn : iSimpleQuery;
+    FDAO : iSimpleDAO<TUSUARIO>;
+    FDataSource : TDataSource;
+  public
+    constructor Create;
+    destructor Destroy; override;
+    class function New : iDAOUsuario;
+    function Find : TJsonArray; overload;
+    function Find (const aID : String; var aObject : TUSUARIO ) : iDAOUsuario; overload;
+    function Find (const aID : String ) : TJsonObject; overload;
+    function ValidarUsuarioSenha(aCPF, aSenha: String): TJSONObject;
+    function Insert (const aJsonObject : TJsonObject) : TJsonObject;
+    function Update (const aJsonObject : TJsonObject) : TJsonObject; overload;
+    function Update (const aObject : TUSUARIO) : iDAOUsuario; overload;
+    function Delete (aField : String; aValue : String) : TJsonObject;
+    function DAO : ISimpleDAO<TUSUARIO>;
+    function DataSetAsJsonArray : TJsonArray;
+    function DataSetAsJsonObject : TJsonObject;
+    function DataSet : TDataSet;
+  end;
+
+implementation
+
+{ TDAOGeneric<T> }
+
+uses Model.Connection, System.SysUtils, Funcoes;
+
+constructor TDAOUsuario.Create;
+begin
+  FDataSource := TDataSource.Create(nil);
+  FIndexConn := Model.Connection.Connected;
+  FConn := TSimpleQueryFiredac.New(Model.Connection.FConnList.Items[FIndexConn]);
+  FDAO := TSimpleDAO<TUSUARIO>.New(FConn).DataSource(FDataSource);
+end;
+
+function TDAOUsuario.DAO: ISimpleDAO<TUSUARIO>;
+begin
+  Result := FDAO;
+end;
+
+function TDAOUsuario.DataSet: TDataSet;
+begin
+  Result := FDataSource.DataSet;
+end;
+
+function TDAOUsuario.DataSetAsJsonArray: TJsonArray;
+begin
+  Result := FDataSource.DataSet.AsJSONArray;
+end;
+
+function TDAOUsuario.DataSetAsJsonObject: TJsonObject;
+begin
+  Result := FDataSource.DataSet.AsJSONObject;
+end;
+
+function TDAOUsuario.Delete(aField, aValue: String): TJsonObject;
+begin
+  FDAO.Delete(aField, aValue);
+  Result := FDataSource.DataSet.AsJSONObject;
+end;
+
+destructor TDAOUsuario.Destroy;
+begin
+  FDataSource.Free;
+  Model.Connection.Disconnected(FIndexConn);
+  inherited;
+end;
+
+function TDAOUsuario.Find(const aID: String; var aObject: TUSUARIO): iDAOUsuario;
+begin
+  Result := Self;
+  aObject := FDAO.Find(StrToInt(aID));
+end;
+
+function TDAOUsuario.Find(const aID: String): TJsonObject;
+begin
+  FDAO.Find(StrToInt(aID));
+  Result := FDataSource.DataSet.AsJSONObject;
+end;
+
+function TDAOUsuario.Find: TJsonArray;
+begin
+  FDAO.Find;
+  Result := FDataSource.DataSet.AsJSONArray;
+end;
+
+function TDAOUsuario.Insert(const aJsonObject: TJsonObject): TJsonObject;
+begin
+  FDAO.Insert(TJson.JsonToObject<TUSUARIO>(aJsonObject));
+  Result := FDataSource.DataSet.AsJSONObject;
+end;
+
+class function TDAOUsuario.New: iDAOUsuario;
+begin
+  Result := Self.Create;
+end;
+
+function TDAOUsuario.Update(const aJsonObject: TJsonObject): TJsonObject;
+begin
+  FDAO.Update(TJson.JsonToObject<TUSUARIO>(aJsonObject));
+  Result := FDataSource.DataSet.AsJSONObject;
+end;
+
+function TDAOUsuario.Update(const aObject: TUSUARIO): iDAOUsuario;
+begin
+  FDAO.Update(aObject);
+  Result := Self;
+end;
+
+function TDAOUsuario.ValidarUsuarioSenha(aCPF, aSenha: String): TJSONObject;
+var
+  LSQL: String;
+  LQuery: TSimpleQueryFiredac;
+begin
+  Result:= nil;
+
+  FConn.SQL.Clear;
+
+  TSimpleSQL<TUSUARIO>
+    .New(nil)
+    .Where('CPF_USUARIO = ' + QuotedStr(aCPF) + ' AND SENHA = ' + QuotedStr(CodificarSenha(aSenha)))
+    .Select(LSQL);
+  FConn.SQL.Add(LSQL);
+
+  if not (FConn.Open.DataSet.IsEmpty) then
+    Result:= LQuery.DataSet.AsJSONObject;
+end;
+
+end.
